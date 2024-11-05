@@ -4,7 +4,13 @@
     <label (dblclick)="enableEditing()">{{ toDoItem.description }}</label>
     <button class="destroy" (click)="onClickDelete()"></button>
   </div>
-  <input class="edit" *ngIf="isEditing" [(ngModel)]="toDoItem.description" (blur)="onBlur()" (keydown.enter)="onEnter()">
+  <input class="edit" 
+  *ngIf="isEditing" 
+  [(ngModel)]="description" 
+  (blur)="onBlur()" 
+  (keydown.enter)="onEnter()"
+  placeholder="{{ toDoItem.description }}"
+  >
 </li>
 
 

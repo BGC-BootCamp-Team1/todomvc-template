@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ToDoItemComponent } from './to-do-item/to-do-item.component';
-import { toDoItemsData } from '../mock/todoitems.mock';
 import { ToDoItem } from "../models/todoitem.model";
 
 @Component({
@@ -10,14 +8,9 @@ import { ToDoItem } from "../models/todoitem.model";
 })
 export class ToDoItemListComponent{
   @Input({required:true}) displayItems:ToDoItem[]=[]
-  // @Output() public itemSelected:EventEmitter<ToDoItem> = new EventEmitter();
   @Output() public itemChanged:EventEmitter<ToDoItem> = new EventEmitter();
 
-  // public onClickLabelHandler(toDoItem:ToDoItem){
-  //   this.itemSelected.emit(toDoItem);
-  // }
-
-  public onClickCheckBoxHandler(toDoItem:ToDoItem){
+  public itemChangeHandler(toDoItem:ToDoItem){
     this.itemChanged.emit(toDoItem);
   }
 

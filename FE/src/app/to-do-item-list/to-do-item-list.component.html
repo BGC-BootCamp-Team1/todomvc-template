@@ -4,6 +4,6 @@
   <app-to-do-item
     *ngFor="let item of displayItems"
     [toDoItem]="item"
-    (itemChanged)="onClickCheckBoxHandler($event)"
+    (itemChanged)="itemChangeHandler($event)"
   ></app-to-do-item>
 </ul>

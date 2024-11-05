@@ -45,23 +45,22 @@ export class HomePageComponent {
     this.displayItems = this.toDoDataService.displayItems;
   }
 
-  public onClickCreateItem() {
-    let newItem:ToDoItem={
-      id: "new-item",
-      description: '',
-      createdTime: new Date().toString(),
-      done: false,
-      favorite: false,
-    };
-    this.router.navigate(['/detail']);
-  }
+  // public onClickCreateItem() {
+  //   let newItem:ToDoItem={
+  //     id: "new-item",
+  //     description: '',
+  //     createdTime: new Date().toString(),
+  //     done: false,
+  //     favorite: false,
+  //   };
+  //   this.router.navigate(['/detail']);
+  // }
 
-  public onClickLabelHandler(item: ToDoItem) {
-    console.log(`${item.description} selected home page`);
-    this.router.navigate(['/detail', item.id]);
-  }
-  public onClickCheckBoxHandler(item: ToDoItem) {
-    console.log(`${item.description} selected home page`);
+  // public onClickLabelHandler(item: ToDoItem) {
+  //   console.log(`${item.description} selected home page`);
+  //   this.router.navigate(['/detail', item.id]);
+  // }
+  public itemChangeHandler(item: ToDoItem) {
     this.http.put(apiUrl+item.id, item).pipe(delay(1000)).subscribe({
       next: (response) => {
         this.toDoDataService.replaceItem(item);
