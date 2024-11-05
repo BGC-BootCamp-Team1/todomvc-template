@@ -16,7 +16,7 @@ export class HomePageComponent {
   public searchBy: string = '';
   public displayItems: ToDoItem[] = [];
   loading = true;
-  filteredTodos: ToDoItem[] = [];
+  // filteredTodos: ToDoItem[] = this.displayItems;
 
   constructor(
     private toDoDataService: ToDoDataService,
@@ -26,7 +26,13 @@ export class HomePageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.reloadData();
+    this.route.params.subscribe(params => {
+      this.reloadData();
+      this.applySort(FilterOptions.All);
+    });
+    // this.reloadData();
+    // this.applySort(FilterOptions.All);
+    
     // console.log(this.displayItems)
     // this.route.url.subscribe(url => {
     //   const path = url[0]?.path || 'all';
@@ -64,11 +70,10 @@ export class HomePageComponent {
         this.toDoDataService.items = response as ToDoItem[];
         this.toDoDataService.updateDisplay();
         this.displayItems = [...this.toDoDataService.items];
-        this.router.events.subscribe(() => {
-          const path = this.route.snapshot.fragment || 'all';
-          this.filterTodos(path);
-        });
-        console.log(this.filteredTodos);
+        // this.router.events.subscribe(() => {
+        //   const path = this.route.snapshot.fragment || 'all';
+        //   this.filterTodos(path);
+        // });
       },
       error: (error) => {
         console.error('Error getting item', error);
@@ -79,17 +84,17 @@ export class HomePageComponent {
     });
   }
 
-  private filterTodos(path: string): void {
-    this.filteredTodos = this.displayItems.filter((todo) => {
-      if (path === 'active') {
-        return !todo.done;
-      } else if (path === 'completed') {
-        return todo.done;
-      } else {
-        return true;
-      }
-    });
-  }
+  // private filterTodos(path: string): void {
+  //   this.filteredTodos = this.displayItems.filter((todo) => {
+  //     if (path === 'active') {
+  //       return !todo.done;
+  //     } else if (path === 'completed') {
+  //       return todo.done;
+  //     } else {
+  //       return true;
+  //     }
+  //   });
+  // }
   public applySort(sortOptions: FilterOptions) {
     this.displayItems = this.toDoDataService.applySort(sortOptions);
   }
