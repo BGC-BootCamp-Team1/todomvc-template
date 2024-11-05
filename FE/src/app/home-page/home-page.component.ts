@@ -15,7 +15,7 @@ const apiUrl = 'http://localhost:5010/api/v1/todoitems/'
 export class HomePageComponent {
   public searchBy: string = '';
   public displayItems: ToDoItem[] = [];
-  loading = false;
+  loading = true;
   filteredTodos: ToDoItem[] = [];
 
   constructor(
@@ -112,6 +112,10 @@ export class HomePageComponent {
     this.displayItems = this.toDoDataService.applySort(sortOptions)
   }
 
+  public getNumItemsLeft(): number{
+    return this.displayItems.filter(item=>item.done === false).length;
+  }
+
   handleNewDescriptionValue(newItemDescription: string): void {
     this.loading=true;
     let toDoItem: ToDoItem = {
@@ -133,5 +137,29 @@ export class HomePageComponent {
         this.loading=false
       }
     });
+  }
+
+  clearCompleted(){
+    console.log("clear completed")
+    let deleteConfirm = confirm('Sure to clear completed?');
+    if(deleteConfirm){
+      this.displayItems.filter(item=>item.done === true)
+    .forEach(item => {
+      this.loading=true;
+    
+      this.http.delete(apiUrl+item.id).pipe(delay(1000)).subscribe({
+        next: (response) => {
+          this.toDoDataService.deleteItem(item.id);
+          this.toDoDataService.updateDisplay();
+        },
+        error: (error) => {
+          console.error('Error delete item', error);
+        },
+        complete: ()=>{
+          this.loading=false;
+        }
+    });
+    });
+    }
   }
 }

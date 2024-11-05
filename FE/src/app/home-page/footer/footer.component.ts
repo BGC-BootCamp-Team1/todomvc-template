@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FilterOptions } from '../../models/todoitem.model';
 
 @Component({
@@ -8,6 +8,8 @@ import { FilterOptions } from '../../models/todoitem.model';
 })
 export class FooterComponent {
   @Output() public filterOption:EventEmitter<FilterOptions> = new EventEmitter();
+  @Output() public clearCompleted:EventEmitter<void> = new EventEmitter();
+  @Input() public numItemsLeft: number = 0
   showAll(){
     this.filterOption.emit(FilterOptions.All);
   }
@@ -18,5 +20,7 @@ export class FooterComponent {
     this.filterOption.emit(FilterOptions.Completed);
   }
 
-
+  onClickClearCompleted(){
+    this.clearCompleted.emit();
+  }
 }
