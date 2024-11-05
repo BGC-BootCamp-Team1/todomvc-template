@@ -1,0 +1,86 @@
+.back-button{
+    background-color: rgb(176, 223, 127);
+    text-align: center;
+    border: 2px solid rgb(11, 129, 69);
+    margin: 10px;
+    padding:5px;
+    border-radius: 5px;
+}
+
+.new-item{
+    border:2px solid rgb(11, 129, 69);
+    border-radius: 5px;
+    padding:5px;
+    margin: 10px;
+    display: flex;
+    border:2px solid rgb(11, 129, 69);
+    border-radius: 5px;
+    padding:5px;
+    margin-bottom: 5px;
+    justify-content: space-between;
+    position:relative;
+    .checkbox-and-label{
+        flex:1;
+        display: flex;
+        .name-checkbox{
+            padding:5px 0px;
+        }
+        .search-input{
+            flex:1;
+            padding:5px 0px;
+        }
+    }
+    .star-icon{
+        padding-inline: 10px;
+        .star {
+            visibility:hidden;
+            font-size:x-large;
+            cursor:pointer;
+            
+        }
+        .star:before {
+            content: "\2605";
+            position: absolute;
+            visibility:visible;
+            color: orange;
+            top: 50%;
+            transform: translate(0, -60%);
+         }
+         .star:checked:before {
+            content: "\2606";
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -60%);
+         }
+    }
+
+}
+.final-line{
+    display: flex;
+    margin: 10px;
+    .delete-button{
+        background-color: rgb(223, 127, 127);
+        text-align: center;
+        border: 2px solid rgb(129, 25, 11);
+        margin: 10px;
+        padding:5px;
+        border-radius: 5px;
+    }
+    .created-date{
+        text-align: center;
+        margin: 10px;
+        padding:5px;
+    }
+    .save-button{
+        background-color: rgb(176, 223, 127);
+        text-align: center;
+        border: 2px solid rgb(11, 129, 69);
+        margin: 10px;
+        padding:5px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+    }
+
+}

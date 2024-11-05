@@ -1,0 +1,45 @@
+.to-do-item{
+    display: flex;
+    border:2px solid rgb(11, 129, 69);
+    border-radius: 5px;
+    padding:5px;
+    margin-bottom: 5px;
+    justify-content: space-between;
+    position:relative;
+    cursor: pointer;
+    .checkbox-and-label{
+        flex:1;
+        display: flex;
+        .name-checkbox{
+            padding:5px 0px;
+    
+        }
+        .label{
+            flex:1;
+            padding:5px 0px;
+        }
+    }
+    .star-icon{
+        padding-inline: 10px;
+        .star {
+            visibility:hidden;
+            font-size:x-large;
+            cursor:pointer;
+            
+        }
+        .star:before {
+            content: "\2605";
+            position: absolute;
+            visibility:visible;
+            color: orange;
+            top: 50%;
+            transform: translate(0, -60%);
+         }
+         .star:checked:before {
+            content: "\2606";
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -60%);
+         }
+    }
+}

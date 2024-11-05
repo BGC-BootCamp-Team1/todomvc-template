@@ -1,0 +1,18 @@
+<app-top-bar></app-top-bar>
+<app-search-area
+  (outputSearchValue)="receiveSearchValueFromInput($event)"
+  (outputReloadClicked)="reloadData()"
+></app-search-area>
+<app-filter-area
+(sortOption)="applySort($event)"
+></app-filter-area>
+<app-reloadable-area [loading]="loading" [size]="60">
+  <app-to-do-item-list 
+[displayItems]="displayItems"     
+(itemSelected)="onClickLabelHandler($event)"
+(itemChanged)="onClickCheckBoxHandler($event)"
+>
+</app-to-do-item-list>
+</app-reloadable-area>
+
+<app-create-item-button (click)="onClickCreateItem()"></app-create-item-button>

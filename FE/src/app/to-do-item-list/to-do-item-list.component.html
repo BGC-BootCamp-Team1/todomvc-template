@@ -1,0 +1,16 @@
+<div class="to-do-item-list">
+
+    <app-to-do-item
+    *ngFor="let item of displayItems" 
+    [toDoItem]="item"
+    (itemSelected)="onClickLabelHandler($event)"
+    (itemChanged)="onClickCheckBoxHandler($event)"
+        ></app-to-do-item>
+   
+    <div *ngIf="!displayItems || displayItems?.length === 0">
+        No results
+    </div>
+    
+</div>
+
+

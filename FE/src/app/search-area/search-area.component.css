@@ -1,0 +1,20 @@
+.search-area{
+    display: flex;
+    margin: 10px;
+    .search-input{
+        flex:1;
+        padding-left: 10px;
+        border:2px solid rgb(11, 129, 69);
+
+    }
+    .reload-button{
+        width: 100px;
+        text-align: center;
+        margin-left:5px;
+        padding:5px;
+        border:2px solid rgb(11, 129, 69);
+        background-color: rgb(176, 223, 127);
+        border-radius: 5px;
+    }
+
+}
