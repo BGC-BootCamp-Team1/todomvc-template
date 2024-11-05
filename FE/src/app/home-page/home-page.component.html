@@ -22,7 +22,9 @@
   <app-footer 
   (filterOption)="applySort($event)"
   (clearCompleted) = "clearCompleted()"
-  [numItemsLeft]="getNumItemsLeft()"></app-footer>
+  [numItemsLeft]="getNumItemsLeft()"
+  [existCompleted] = "existCompleted()"
+  ></app-footer>
 </section>
 <app-info></app-info>
 

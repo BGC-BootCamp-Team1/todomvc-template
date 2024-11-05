@@ -10,6 +10,7 @@ export class FooterComponent {
   @Output() public filterOption:EventEmitter<FilterOptions> = new EventEmitter();
   @Output() public clearCompleted:EventEmitter<void> = new EventEmitter();
   @Input() public numItemsLeft: number = 0
+  @Input() public existCompleted: boolean = false;
   showAll(){
     this.filterOption.emit(FilterOptions.All);
   }

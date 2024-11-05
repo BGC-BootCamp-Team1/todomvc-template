@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs';
 
-const apiUrl = 'http://localhost:5010/api/v1/todoitems/'
+const apiUrl = 'http://localhost:5010/api/v1/todoitems/';
 
 @Component({
   selector: 'app-home-page',
@@ -61,44 +61,47 @@ export class HomePageComponent {
   //   this.router.navigate(['/detail', item.id]);
   // }
   public itemChangeHandler(item: ToDoItem) {
-    this.http.put(apiUrl+item.id, item).pipe(delay(1000)).subscribe({
-      next: (response) => {
-        this.toDoDataService.replaceItem(item);
-        this.toDoDataService.updateDisplay();
-      },
-      error: (error) => {
-        console.error('Error put item', error);
-      }
-    });
-    
+    this.http
+      .put(apiUrl + item.id, item)
+      .pipe(delay(1000))
+      .subscribe({
+        next: (response) => {
+          this.toDoDataService.replaceItem(item);
+          this.toDoDataService.updateDisplay();
+        },
+        error: (error) => {
+          console.error('Error put item', error);
+        },
+      });
   }
 
-  public reloadData(){
+  public reloadData() {
     this.loading = true;
-    this.http.get(apiUrl).pipe(delay(1000)).subscribe({
-      next: (response) => {
-        this.toDoDataService.items = response as ToDoItem[];
-        this.toDoDataService.updateDisplay();
-        this.displayItems = [...this.toDoDataService.items];
-        this.router.events.subscribe(() => {
-          const path = this.route.snapshot.fragment || 'all';
-          this.filterTodos(path);
-        });
-        console.log(this.filteredTodos)
-      },
-      error: (error) => {
-        console.error('Error getting item', error);
-      },
-      complete: ()=>{
-        this.loading=false
-        
-      }
-    });
-    
+    this.http
+      .get(apiUrl)
+      .pipe(delay(1000))
+      .subscribe({
+        next: (response) => {
+          this.toDoDataService.items = response as ToDoItem[];
+          this.toDoDataService.updateDisplay();
+          this.displayItems = [...this.toDoDataService.items];
+          this.router.events.subscribe(() => {
+            const path = this.route.snapshot.fragment || 'all';
+            this.filterTodos(path);
+          });
+          console.log(this.filteredTodos);
+        },
+        error: (error) => {
+          console.error('Error getting item', error);
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
   }
 
   private filterTodos(path: string): void {
-    this.filteredTodos = this.displayItems.filter(todo => {
+    this.filteredTodos = this.displayItems.filter((todo) => {
       if (path === 'active') {
         return !todo.done;
       } else if (path === 'completed') {
@@ -108,16 +111,16 @@ export class HomePageComponent {
       }
     });
   }
-  public applySort(sortOptions:FilterOptions){
-    this.displayItems = this.toDoDataService.applySort(sortOptions)
+  public applySort(sortOptions: FilterOptions) {
+    this.displayItems = this.toDoDataService.applySort(sortOptions);
   }
 
-  public getNumItemsLeft(): number{
-    return this.displayItems.filter(item=>item.done === false).length;
+  public getNumItemsLeft(): number {
+    return this.displayItems.filter((item) => item.done === false).length;
   }
 
   handleNewDescriptionValue(newItemDescription: string): void {
-    this.loading=true;
+    this.loading = true;
     let toDoItem: ToDoItem = {
       id: 'new-item',
       description: newItemDescription,
@@ -125,41 +128,51 @@ export class HomePageComponent {
       done: false,
       favorite: false,
     };
-    this.http.post(apiUrl, toDoItem).pipe(delay(1000)).subscribe({
-      next: (response) => {
-        this.toDoDataService.createItem(toDoItem);
-        this.toDoDataService.updateDisplay();
-      },
-      error: (error) => {
-        console.error('Error posting item', error);
-      },
-      complete: ()=>{
-        this.loading=false
-      }
-    });
-  }
-
-  clearCompleted(){
-    console.log("clear completed")
-    let deleteConfirm = confirm('Sure to clear completed?');
-    if(deleteConfirm){
-      this.displayItems.filter(item=>item.done === true)
-    .forEach(item => {
-      this.loading=true;
-    
-      this.http.delete(apiUrl+item.id).pipe(delay(1000)).subscribe({
+    this.http
+      .post(apiUrl, toDoItem)
+      .pipe(delay(1000))
+      .subscribe({
         next: (response) => {
-          this.toDoDataService.deleteItem(item.id);
+          this.toDoDataService.createItem(toDoItem);
           this.toDoDataService.updateDisplay();
         },
         error: (error) => {
-          console.error('Error delete item', error);
+          console.error('Error posting item', error);
         },
-        complete: ()=>{
-          this.loading=false;
-        }
-    });
-    });
+        complete: () => {
+          this.loading = false;
+        },
+      });
+  }
+  existCompleted(): boolean {
+    return this.displayItems.some((item) => item.done === true);
+  }
+
+  clearCompleted() {
+    console.log('clear completed');
+    let deleteConfirm = confirm('Sure to clear completed?');
+    if (deleteConfirm) {
+      this.displayItems
+        .filter((item) => item.done === true)
+        .forEach((item) => {
+          this.loading = true;
+
+          this.http
+            .delete(apiUrl + item.id)
+            .pipe(delay(1000))
+            .subscribe({
+              next: (response) => {
+                this.toDoDataService.deleteItem(item.id);
+                this.toDoDataService.updateDisplay();
+              },
+              error: (error) => {
+                console.error('Error delete item', error);
+              },
+              complete: () => {
+                this.loading = false;
+              },
+            });
+        });
     }
   }
 }

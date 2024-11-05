@@ -1,9 +1,10 @@
-<input id="toggle-all" class="toggle-all" type="checkbox" />
+<input id="toggle-all" class="toggle-all" type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll($event)"/>
 <label for="toggle-all">Mark all as complete</label>
 <ul class="todo-list">
   <app-to-do-item
     *ngFor="let item of displayItems"
     [toDoItem]="item"
     (itemChanged)="itemChangeHandler($event)"
+    (change)="updateSelectAllState()"
   ></app-to-do-item>
 </ul>
