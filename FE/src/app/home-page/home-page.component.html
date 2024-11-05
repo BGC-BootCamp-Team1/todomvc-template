@@ -21,8 +21,7 @@
   <app-top-bar (newItemDescription)="handleNewDescriptionValue($event)"></app-top-bar>
   <!-- This section should be hidden by default and shown when there are todos -->
   <section class="main" *ngIf="displayItems.length!=0">
-    <app-to-do-item-list [displayItems]="filteredTodos"     
-      (itemSelected)="onClickLabelHandler($event)"
+    <app-to-do-item-list [displayItems]="filteredTodos"
       (itemChanged)="onClickCheckBoxHandler($event)"></app-to-do-item-list>
   </section>
   <app-footer (filterOption)="applySort($event)"></app-footer>

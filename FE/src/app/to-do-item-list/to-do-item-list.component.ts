@@ -10,16 +10,14 @@ import { ToDoItem } from "../models/todoitem.model";
 })
 export class ToDoItemListComponent{
   @Input({required:true}) displayItems:ToDoItem[]=[]
-  @Output() public itemSelected:EventEmitter<ToDoItem> = new EventEmitter();
+  // @Output() public itemSelected:EventEmitter<ToDoItem> = new EventEmitter();
   @Output() public itemChanged:EventEmitter<ToDoItem> = new EventEmitter();
 
-  public onClickLabelHandler(toDoItem:ToDoItem){
-    //console.log(`${this.toDoItem.description} selected`)
-    this.itemSelected.emit(toDoItem);
-  }
+  // public onClickLabelHandler(toDoItem:ToDoItem){
+  //   this.itemSelected.emit(toDoItem);
+  // }
 
   public onClickCheckBoxHandler(toDoItem:ToDoItem){
-    //console.log(`${this.toDoItem.description} selected`)
     this.itemChanged.emit(toDoItem);
   }
 

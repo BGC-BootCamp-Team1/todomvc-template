@@ -1,18 +1,10 @@
-<!-- <div class="to-do-item" >
-  <div class="checkbox-and-label">
-    <input class="name-checkbox" type="checkbox" [(ngModel)]="toDoItem.done" (click)="onClickCheckBox()"/>
-    <div class="label" (click)="onClickLabel()">{{ toDoItem.description }}</div>
-  </div>
-  <div class="star-icon">
-    <input class="star" type="checkbox" [(ngModel)]="toDoItem.favorite" (click)="onClickFavorite()">
-  </div>
-</div> -->
-
-<li [ngClass]="{'completed': toDoItem.done}">
+<li [ngClass]="{'completed': toDoItem.done, 'editing': isEditing}">
   <div class="view">
-    <input class="toggle" type="checkbox" [checked]="toDoItem.done">
-    <label>{{ toDoItem.description }}</label>
-    <button class="destroy"></button>
+    <input class="toggle" type="checkbox" [(ngModel)]="toDoItem.done" (click)="onClickCheckBox()">
+    <label (dblclick)="enableEditing()">{{ toDoItem.description }}</label>
+    <button class="destroy" (click)="onClickDelete()"></button>
   </div>
-  <input class="edit" [value]="editValue">
+  <input class="edit" *ngIf="isEditing" [(ngModel)]="toDoItem.description" (blur)="onBlur()" (keydown.enter)="onEnter()">
 </li>
+
+
