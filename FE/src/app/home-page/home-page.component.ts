@@ -51,9 +51,8 @@ export class HomePageComponent {
   }
   public onClickCheckBoxHandler(item: ToDoItem) {
     console.log(`${item.description} selected home page`);
-    this.http.put(apiUrl+item.id, item).pipe(delay(3000)).subscribe({
+    this.http.put(apiUrl+item.id, item).pipe(delay(1000)).subscribe({
       next: (response) => {
-        console.log('Item put successfully', response);
         this.toDoDataService.replaceItem(item);
         this.toDoDataService.updateDisplay();
       },
@@ -66,12 +65,11 @@ export class HomePageComponent {
 
   public reloadData(){
     this.loading = true;
-    this.http.get(apiUrl).pipe(delay(3000)).subscribe({
+    this.http.get(apiUrl).pipe(delay(1000)).subscribe({
       next: (response) => {
         this.toDoDataService.items = response as ToDoItem[];
         this.toDoDataService.updateDisplay();
         this.displayItems = [...this.toDoDataService.items];
-        console.log('Get all items', response);
       },
       error: (error) => {
         console.error('Error getting item', error);

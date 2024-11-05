@@ -6,11 +6,11 @@ import { toDoItemsData } from '../mock/todoitems.mock';
 import { of } from "rxjs";
 import { HttpClient } from '@angular/common/http';
 import {MockComponent} from "ng-mocks";
-import { TopBarComponent } from '../top-bar/top-bar.component';
-import { SearchAreaComponent } from '../search-area/search-area.component';
-import { FilterAreaComponent } from '../filter-area/filter-area.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { SearchAreaComponent } from './search-area/search-area.component';
+import { FilterAreaComponent } from './filter-area/filter-area.component';
 import { ToDoItemListComponent } from '../to-do-item-list/to-do-item-list.component';
-import { CreateItemButtonComponent } from '../create-item-button/create-item-button.component';
+import { CreateItemButtonComponent } from './create-item-button/create-item-button.component';
 import { ReloadableAreaComponent } from '../reloadable-area/reloadable-area.component';
 describe('HomePageComponent', () => {
   let component: HomePageComponent;

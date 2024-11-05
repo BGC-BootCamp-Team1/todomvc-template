@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ToDoItemComponent } from '../to-do-item/to-do-item.component';
+import { ToDoItemComponent } from './to-do-item/to-do-item.component';
 import { toDoItemsData } from '../mock/todoitems.mock';
 import { ToDoItem } from "../models/todoitem.model";
 

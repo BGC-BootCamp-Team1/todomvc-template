@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SortOptions } from '../models/todoitem.model';
+import { SortOptions } from '../../models/todoitem.model';
 
 @Component({
   selector: 'app-filter-area',

@@ -63,12 +63,10 @@ export class DetailPageComponent implements OnInit,CanComponentDeactivate {
 
   public onClickDelete(){
     this.loading=true;
-    console.log("delete clicked")
     let deleteConfirm = confirm('Sure to delete?');
     if(deleteConfirm){
-      this.http.delete(apiUrl+this.toDoItem.id).pipe(delay(2000)).subscribe({
+      this.http.delete(apiUrl+this.toDoItem.id).pipe(delay(1000)).subscribe({
         next: (response) => {
-          console.log('Item deleted successfully', response);
           this.toDoDataService.deleteItem(this.itemId);
           this.toDoDataService.updateDisplay();
         },
@@ -89,9 +87,8 @@ export class DetailPageComponent implements OnInit,CanComponentDeactivate {
     this.loading=true;
     if(this.itemId!==null){
       
-      this.http.put(apiUrl+this.toDoItem.id,this.toDoItem).pipe(delay(2000)).subscribe({
+      this.http.put(apiUrl+this.toDoItem.id,this.toDoItem).pipe(delay(1000)).subscribe({
         next: (response) => {
-          console.log('Item put successfully', response);
           this.toDoDataService.replaceItem(this.toDoItem);
           this.toDoDataService.updateDisplay();
           this.formDirty = false;
@@ -105,9 +102,8 @@ export class DetailPageComponent implements OnInit,CanComponentDeactivate {
         }
       });
     }else{
-      this.http.post(apiUrl, this.toDoItem).pipe(delay(2000)).subscribe({
+      this.http.post(apiUrl, this.toDoItem).pipe(delay(1000)).subscribe({
         next: (response) => {
-          console.log('Item posted successfully', response);
           this.toDoDataService.createItem(this.toDoItem);
           this.toDoDataService.updateDisplay();
           this.formDirty = false;

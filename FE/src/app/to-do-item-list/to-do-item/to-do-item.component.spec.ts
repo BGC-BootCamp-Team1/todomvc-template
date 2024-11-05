@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToDoItemComponent } from './to-do-item.component';
-import { ToDoItem } from '../models/todoitem.model';
+import { ToDoItem } from '../../models/todoitem.model';
 import { FormsModule } from '@angular/forms';
 
 const toDoItem:ToDoItem= {
