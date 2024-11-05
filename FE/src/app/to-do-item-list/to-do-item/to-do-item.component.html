@@ -1,4 +1,4 @@
-<div class="to-do-item" >
+<!-- <div class="to-do-item" >
   <div class="checkbox-and-label">
     <input class="name-checkbox" type="checkbox" [(ngModel)]="toDoItem.done" (click)="onClickCheckBox()"/>
     <div class="label" (click)="onClickLabel()">{{ toDoItem.description }}</div>
@@ -6,4 +6,13 @@
   <div class="star-icon">
     <input class="star" type="checkbox" [(ngModel)]="toDoItem.favorite" (click)="onClickFavorite()">
   </div>
-</div>
+</div> -->
+
+<li [ngClass]="{'completed': toDoItem.done}">
+  <div class="view">
+    <input class="toggle" type="checkbox" [checked]="toDoItem.done">
+    <label>{{ toDoItem.description }}</label>
+    <button class="destroy"></button>
+  </div>
+  <input class="edit" [value]="editValue">
+</li>

@@ -94,6 +94,8 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/base.css",
+              "src/assets/index.css",
               "src/styles.css"
             ],
             "scripts": []

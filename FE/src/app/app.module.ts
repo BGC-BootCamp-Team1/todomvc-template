@@ -15,6 +15,8 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoaderComponent } from './reloadable-area/loader/loader.component';
 import { ReloadableAreaComponent } from './reloadable-area/reloadable-area.component';
+import { FooterComponent } from './home-page/footer/footer.component';
+import { InfoComponent } from './home-page/info/info.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ReloadableAreaComponent } from './reloadable-area/reloadable-area.compo
     DetailPageComponent,
     HomePageComponent,
     LoaderComponent,
-    ReloadableAreaComponent
+    ReloadableAreaComponent,
+    FooterComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

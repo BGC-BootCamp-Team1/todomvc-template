@@ -10,6 +10,7 @@ export class ToDoItemComponent {
   @Input({required:true}) public toDoItem!:ToDoItem;
   @Output() public itemSelected:EventEmitter<ToDoItem> = new EventEmitter();
   @Output() public itemChanged:EventEmitter<ToDoItem> = new EventEmitter();
+  @Input() editValue: string = '';
 
   public onClickCheckBox(){
     //console.log(`${this.toDoItem.description} selected`)
