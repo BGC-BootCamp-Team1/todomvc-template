@@ -4,24 +4,25 @@ import { FilterOptions } from '../../models/todoitem.model';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-  @Output() public filterOption:EventEmitter<FilterOptions> = new EventEmitter();
-  @Output() public clearCompleted:EventEmitter<void> = new EventEmitter();
-  @Input() public numItemsLeft: number = 0
+  @Output() public filterOption: EventEmitter<FilterOptions> =
+    new EventEmitter();
+  @Output() public clearCompleted: EventEmitter<void> = new EventEmitter();
+  @Input() public numItemsLeft: number = 0;
   @Input() public existCompleted: boolean = false;
-  showAll(){
+  showAll() {
     this.filterOption.emit(FilterOptions.All);
   }
-  filterActiveItems(){
+  filterActiveItems() {
     this.filterOption.emit(FilterOptions.Active);
   }
-  filterCompletedItems(){
+  filterCompletedItems() {
     this.filterOption.emit(FilterOptions.Completed);
   }
 
-  onClickClearCompleted(){
+  onClickClearCompleted() {
     this.clearCompleted.emit();
   }
 }

@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToDoItem } from '../../models/todoitem.model';
 import { HttpClient } from '@angular/common/http';
 import { ToDoDataService } from '../../to-do-data.service';
-import { delay } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 const apiUrl = 'http://localhost:5010/api/v1/todoitems/'
 
@@ -13,7 +12,6 @@ const apiUrl = 'http://localhost:5010/api/v1/todoitems/'
 })
 export class ToDoItemComponent {
   @Input({ required: true }) public toDoItem!: ToDoItem;
-  // @Output() public itemSelected: EventEmitter<ToDoItem> = new EventEmitter();
   @Output() public itemChanged: EventEmitter<ToDoItem> = new EventEmitter();
   @Input() editValue: string = '';
   description: string = '';
@@ -57,7 +55,7 @@ export class ToDoItemComponent {
     this.loading=true;
     let deleteConfirm = confirm('Sure to delete?');
     if(deleteConfirm){
-      this.http.delete(apiUrl+this.toDoItem.id).pipe(delay(1000)).subscribe({
+      this.http.delete(apiUrl+this.toDoItem.id).subscribe({
         next: (response) => {
           this.toDoDataService.deleteItem(this.toDoItem.id);
           this.toDoDataService.updateDisplay();
