@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SortOptions, ToDoItem } from './models/todoitem.model';
+import { FilterOptions, ToDoItem } from './models/todoitem.model';
 import { toDoItemsData } from './mock/todoitems.mock';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -65,13 +65,13 @@ export class ToDoDataService {
     this.displayItems=[...this.items] ;
   }
 
-  public applySort(sortOptions:SortOptions){
-    if(sortOptions===SortOptions.sortByDescription){
-      return([...this.displayItems.sort((a,b)=>a.description.localeCompare(b.description))]);
-    }else if(sortOptions===SortOptions.sortByCreatedTime){
-      return([...this.displayItems.sort((a,b)=>a.createdTime.localeCompare(b.createdTime))]);
-    }else{
+  public applySort(sortOptions:FilterOptions){
+    if(sortOptions===FilterOptions.Active){
       return([...this.displayItems.filter((a)=>a.done===false)]);
+    }else if(sortOptions===FilterOptions.Completed){
+      return([...this.displayItems.filter((a)=>a.done===true)]);
+    }else{
+      return([...this.displayItems]);
     }
 
   }

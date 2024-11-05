@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { SortOptions, ToDoItem } from '../models/todoitem.model';
+import { FilterOptions, ToDoItem } from '../models/todoitem.model';
 import { ToDoDataService } from '../to-do-data.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs';
 
@@ -16,19 +16,30 @@ export class HomePageComponent {
   public searchBy: string = '';
   public displayItems: ToDoItem[] = [];
   loading = false;
+  filteredTodos: ToDoItem[] = [];
 
   constructor(
     private toDoDataService: ToDoDataService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.reloadData();
+    // console.log(this.displayItems)
+    // this.route.url.subscribe(url => {
+    //   const path = url[0]?.path || 'all';
+    //   if (path === 'active') {
+    //     this.applySort(SortOptions.Active)
+    //   } else if (path === 'completed') {
+    //     this.applySort(SortOptions.Completed)
+    //   }
+    // });
+    // console.log(this.displayItems)
   }
 
   public receiveSearchValueFromInput(searchBy: string) {
-    //console.log(`receive ${searchBy}`);
     this.searchBy = searchBy;
     this.toDoDataService.searchBy = searchBy;
     this.displayItems = this.toDoDataService.displayItems;
@@ -70,16 +81,35 @@ export class HomePageComponent {
         this.toDoDataService.items = response as ToDoItem[];
         this.toDoDataService.updateDisplay();
         this.displayItems = [...this.toDoDataService.items];
+        this.router.events.subscribe(() => {
+          const path = this.route.snapshot.fragment || 'all';
+          this.filterTodos(path);
+        });
+        console.log(this.filteredTodos)
       },
       error: (error) => {
         console.error('Error getting item', error);
       },
       complete: ()=>{
         this.loading=false
+        
+      }
+    });
+    
+  }
+
+  private filterTodos(path: string): void {
+    this.filteredTodos = this.displayItems.filter(todo => {
+      if (path === 'active') {
+        return !todo.done;
+      } else if (path === 'completed') {
+        return todo.done;
+      } else {
+        return true;
       }
     });
   }
-  public applySort(sortOptions:SortOptions){
+  public applySort(sortOptions:FilterOptions){
     this.displayItems = this.toDoDataService.applySort(sortOptions)
   }
 }

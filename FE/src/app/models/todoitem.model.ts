@@ -7,8 +7,8 @@ export interface ToDoItem{
     favorite:Boolean
 }
 
-export enum SortOptions{
-    sortByDescription,
-    sortByCreatedTime,
-    hideDone
+export enum FilterOptions{
+    All,
+    Active,
+    Completed
 }

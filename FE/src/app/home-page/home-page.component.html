@@ -21,11 +21,11 @@
   <app-top-bar></app-top-bar>
   <!-- This section should be hidden by default and shown when there are todos -->
   <section class="main" *ngIf="displayItems.length!=0">
-    <app-to-do-item-list [displayItems]="displayItems"     
+    <app-to-do-item-list [displayItems]="filteredTodos"     
       (itemSelected)="onClickLabelHandler($event)"
       (itemChanged)="onClickCheckBoxHandler($event)"></app-to-do-item-list>
   </section>
-  <app-footer></app-footer>
+  <app-footer (filterOption)="applySort($event)"></app-footer>
 </section>
 <app-info></app-info>
 
