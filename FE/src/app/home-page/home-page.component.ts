@@ -112,4 +112,27 @@ export class HomePageComponent {
   public applySort(sortOptions:FilterOptions){
     this.displayItems = this.toDoDataService.applySort(sortOptions)
   }
+
+  handleNewDescriptionValue(newItemDescription: string): void {
+    this.loading=true;
+    let toDoItem: ToDoItem = {
+      id: 'new-item',
+      description: newItemDescription,
+      createdTime: new Date().toString(),
+      done: false,
+      favorite: false,
+    };
+    this.http.post(apiUrl, toDoItem).pipe(delay(1000)).subscribe({
+      next: (response) => {
+        this.toDoDataService.createItem(toDoItem);
+        this.toDoDataService.updateDisplay();
+      },
+      error: (error) => {
+        console.error('Error posting item', error);
+      },
+      complete: ()=>{
+        this.loading=false
+      }
+    });
+  }
 }
