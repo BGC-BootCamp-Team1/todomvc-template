@@ -2,21 +2,15 @@
 <footer class="footer">
     <!-- This should be `0 items left` by default -->
     <span class="todo-count"><strong>{{numItemsLeft}}</strong> item left</span>
-    <ul class="filters">
+    <ul class="filters" (click)="onClick()">
       <li>
-        <a routerLink="/all" routerLinkActive="selected" 
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="showAll()"
-        >All</a>
+        <a routerLink="/" [class.selected]="filter === 'all'">All</a>
       </li>
       <li>
-        <a routerLink="/active" routerLinkActive="selected" 
-        (click)="filterActiveItems()"
-        >Active</a>
+        <a routerLink="/active" [class.selected]="filter === 'active'">Active</a>
       </li>
       <li>
-        <a routerLink="/completed" routerLinkActive="selected" 
-        (click)="filterCompletedItems()">Completed</a>
+        <a routerLink="/completed" [class.selected]="filter === 'completed'">Completed</a>
       </li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->

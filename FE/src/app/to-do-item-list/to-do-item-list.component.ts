@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToDoItem } from '../models/todoitem.model';
 
 @Component({
@@ -11,7 +11,6 @@ export class ToDoItemListComponent {
   @Output() public itemChanged: EventEmitter<ToDoItem> = new EventEmitter();
   @Output() public itemDeleted: EventEmitter<ToDoItem> = new EventEmitter();
   selectAll: boolean = false;
-
   toggleAll(event: any): void {
     const checked = event.target.checked;
     this.displayItems.forEach((todo) => {

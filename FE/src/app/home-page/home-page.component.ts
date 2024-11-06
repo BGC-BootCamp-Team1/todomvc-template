@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FilterOptions, ToDoItem } from '../models/todoitem.model';
 import { ToDoDataService } from '../to-do-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs';
+import { Location } from '@angular/common';
 
 const apiUrl = 'http://localhost:5010/api/v1/todoitems/';
 
@@ -17,6 +18,7 @@ export class HomePageComponent {
   public displayItems: ToDoItem[] = [];
   loading = true;
   // filteredTodos: ToDoItem[] = this.displayItems;
+  private location = inject(Location);
 
   constructor(
     private toDoDataService: ToDoDataService,
@@ -28,7 +30,7 @@ export class HomePageComponent {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.reloadData();
-      this.applySort(FilterOptions.All);
+      this.applySort();
     });
     // this.reloadData();
     // this.applySort(FilterOptions.All);
@@ -87,7 +89,7 @@ export class HomePageComponent {
         this.toDoDataService.items = response as ToDoItem[];
         this.toDoDataService.updateDisplay();
         this.displayItems = [...this.toDoDataService.items];
-        this.applySort(FilterOptions.All);
+        this.applySort();
       },
       error: (error) => {
         console.error('Error getting item', error);
@@ -97,20 +99,21 @@ export class HomePageComponent {
       },
     });
   }
-
-  // private filterTodos(path: string): void {
-  //   this.filteredTodos = this.displayItems.filter((todo) => {
-  //     if (path === 'active') {
-  //       return !todo.done;
-  //     } else if (path === 'completed') {
-  //       return todo.done;
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  // }
-  public applySort(sortOptions: FilterOptions) {
-    this.displayItems = this.toDoDataService.applySort(sortOptions);
+  public applySort() {
+    const filter = this.location.path().split('/')[1] || 'all';
+    let filterOption:FilterOptions;
+    switch(filter){
+      case 'active':
+        filterOption = FilterOptions.Active;
+        break;
+      case 'completed':
+        filterOption = FilterOptions.Completed;
+        break;
+      default:
+        filterOption = FilterOptions.All;
+        break;
+    }
+    this.displayItems = this.toDoDataService.applySort(filterOption);
   }
 
   public getNumItemsLeft(): number {

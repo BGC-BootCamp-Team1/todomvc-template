@@ -21,7 +21,7 @@
     ></app-to-do-item-list>
   </section>
   <app-footer 
-  (filterOption)="applySort($event)"
+  (filterOption)="applySort()"
   (clearCompleted) = "clearCompleted()"
   [numItemsLeft]="getNumItemsLeft()"
   [existCompleted] = "existCompleted()"
