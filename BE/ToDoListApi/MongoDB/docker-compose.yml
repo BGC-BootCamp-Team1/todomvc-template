@@ -1,0 +1,12 @@
+services:
+  todolist_db:
+    image: mongo:latest
+    container_name: todolist_db
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db #Location for data folder can be changed.
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=bootcamp
+    #   - MONGO_INITDB_ROOT_PASSWORD=123456
