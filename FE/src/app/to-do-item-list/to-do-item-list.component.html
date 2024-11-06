@@ -5,6 +5,7 @@
     *ngFor="let item of displayItems"
     [toDoItem]="item"
     (itemChanged)="itemChangeHandler($event)"
+    (itemDeleted)="itemDeletedHandler($event)"
     (change)="updateSelectAllState()"
   ></app-to-do-item>
 </ul>

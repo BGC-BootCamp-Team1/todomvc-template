@@ -9,6 +9,7 @@ import { ToDoItem } from '../models/todoitem.model';
 export class ToDoItemListComponent {
   @Input({ required: true }) displayItems: ToDoItem[] = [];
   @Output() public itemChanged: EventEmitter<ToDoItem> = new EventEmitter();
+  @Output() public itemDeleted: EventEmitter<ToDoItem> = new EventEmitter();
   selectAll: boolean = false;
 
   toggleAll(event: any): void {
@@ -25,5 +26,9 @@ export class ToDoItemListComponent {
 
   public itemChangeHandler(toDoItem: ToDoItem) {
     this.itemChanged.emit(toDoItem);
+  }
+
+  public itemDeletedHandler(toDoItem: ToDoItem) {
+    this.itemDeleted.emit(toDoItem);
   }
 }

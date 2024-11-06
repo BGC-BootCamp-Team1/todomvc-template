@@ -63,6 +63,22 @@ export class HomePageComponent {
       },
     });
   }
+  public itemDeletedHandler(item: ToDoItem) {
+    this.http.delete(apiUrl+item.id).subscribe({
+      next: (response) => {
+        this.toDoDataService.deleteItem(item.id);
+        this.toDoDataService.updateDisplay();
+        this.reloadData();
+      },
+      error: (error) => {
+        console.error('Error delete item', error);
+      },
+      complete: ()=>{
+        this.loading=false;
+      }
+    });
+  }
+  
 
   public reloadData() {
     this.loading = true;

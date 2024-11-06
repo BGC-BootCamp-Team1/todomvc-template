@@ -17,6 +17,7 @@
     <app-to-do-item-list
       [displayItems]="displayItems"
       (itemChanged)="itemChangeHandler($event)"
+      (itemDeleted)="itemDeletedHandler($event)"
     ></app-to-do-item-list>
   </section>
   <app-footer 

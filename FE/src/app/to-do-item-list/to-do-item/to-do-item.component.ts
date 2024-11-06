@@ -13,14 +13,12 @@ const apiUrl = 'http://localhost:5010/api/v1/todoitems/'
 export class ToDoItemComponent {
   @Input({ required: true }) public toDoItem!: ToDoItem;
   @Output() public itemChanged: EventEmitter<ToDoItem> = new EventEmitter();
+  @Output() public itemDeleted: EventEmitter<ToDoItem> = new EventEmitter();
   @Input() editValue: string = '';
   description: string = '';
   isEditing: boolean = false;
   loading: boolean = false;
   constructor(
-    private toDoDataService: ToDoDataService,
-    private http: HttpClient,
-    // private router: Router
   ) {}
 
   enableEditing(): void {
@@ -52,21 +50,11 @@ export class ToDoItemComponent {
   }
   
   public onClickDelete(){
-    this.loading=true;
+    // this.loading=true;
     let deleteConfirm = confirm('Sure to delete?');
     if(deleteConfirm){
-      this.http.delete(apiUrl+this.toDoItem.id).subscribe({
-        next: (response) => {
-          this.toDoDataService.deleteItem(this.toDoItem.id);
-          this.toDoDataService.updateDisplay();
-        },
-        error: (error) => {
-          console.error('Error delete item', error);
-        },
-        complete: ()=>{
-          this.loading=false;
-        }
-      });
+      this.itemDeleted.emit(this.toDoItem);
+      
     }
     // this.router.navigate(['/all']);
   }
