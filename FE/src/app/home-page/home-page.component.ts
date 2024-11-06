@@ -56,6 +56,7 @@ export class HomePageComponent {
       next: (response) => {
         this.toDoDataService.replaceItem(item);
         this.toDoDataService.updateDisplay();
+        this.reloadData();
       },
       error: (error) => {
         console.error('Error put item', error);
@@ -70,10 +71,7 @@ export class HomePageComponent {
         this.toDoDataService.items = response as ToDoItem[];
         this.toDoDataService.updateDisplay();
         this.displayItems = [...this.toDoDataService.items];
-        // this.router.events.subscribe(() => {
-        //   const path = this.route.snapshot.fragment || 'all';
-        //   this.filterTodos(path);
-        // });
+        this.applySort(FilterOptions.All);
       },
       error: (error) => {
         console.error('Error getting item', error);
@@ -116,6 +114,7 @@ export class HomePageComponent {
       next: (response) => {
         this.toDoDataService.createItem(toDoItem);
         this.toDoDataService.updateDisplay();
+        this.reloadData();
       },
       error: (error) => {
         console.error('Error posting item', error);
@@ -142,6 +141,7 @@ export class HomePageComponent {
             next: (response) => {
               this.toDoDataService.deleteItem(item.id);
               this.toDoDataService.updateDisplay();
+              this.reloadData();
             },
             error: (error) => {
               console.error('Error delete item', error);

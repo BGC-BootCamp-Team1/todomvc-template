@@ -392,7 +392,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-FE/.angular/cache
+FE/.angular/*
 .sass-cache/
 /connect.lock
 /coverage
@@ -403,3 +403,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+.angular/*
