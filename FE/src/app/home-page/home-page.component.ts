@@ -117,7 +117,8 @@ export class HomePageComponent {
   }
 
   public getNumItemsLeft(): number {
-    return this.displayItems.filter((item) => item.done === false).length;
+    const allItems = this.toDoDataService.applySort(FilterOptions.All)
+    return allItems.filter((item) => item.done === false).length;
   }
 
   handleNewDescriptionValue(newItemDescription: string): void {
